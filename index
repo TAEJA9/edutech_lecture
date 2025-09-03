@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Y클라우드 에듀테크 연수 신청</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Webfont */
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css');
+    *{
+      font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,Roboto,'Helvetica Neue','Segoe UI','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic','Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif;
+    }
+
+    /* =======================
+       01) HERO (맑은 하늘+구름)
+       ======================= */
+    .hero-sky{
+      position:relative;
+      min-height: 100vh;
+      background-image:
+        linear-gradient(to bottom, rgba(3, 7, 18, .55), rgba(3,7,18,.15) 45%, rgba(255,255,255,0)),
+        url('/img/sky.jpg'); /* << 이 경로만 실제 이미지 경로로 교체 */
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      isolation:isolate;
+    }
+    .hero-sky::after{
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 600px at 15% 15%, rgba(255,255,255,.35), transparent 60%),
+        radial-gradient(1200px 600px at 85% 25%, rgba(255,255,255,.25), transparent 60%);
+      pointer-events:none; mix-blend:soft-light;
+    }
+    .glass{background: rgba(255,255,255,0.18); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);}
+
+    /* =======================
+       02) PROCESS TIMELINE
+       - 가로 선을 카드 '위쪽'에 배치
+       ======================= */
+    .process-line{
+      height:4px; border-radius: 9999px;
+      background: linear-gradient(90deg, #3b82f6, #22c55e, #a855f7, #f59e0b, #ef4444);
+    }
+
+    /* Micro-interactions */
+    .course-card{transition:all .25s ease; border-left:4px solid transparent;}
+    .course-card:hover{transform:translateX(4px); border-left-color:#667eea;}
+    .calendar-day{transition:all .25s ease;}
+    .calendar-day:hover{transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.12);}
+    .form-input{transition:all .25s ease;}
+    .form-input:focus{transform:translateY(-1px); box-shadow:0 8px 20px rgba(37,99,235,.15);}
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero-sky flex items-end">
+    <div class="container mx-auto px-6 w-full pb-16 pt-24">
+      <div class="max-w-4xl">
+        <h1 class="text-white font-bold leading-tight mb-4" style="font-size:clamp(2.2rem,5vw,3.5rem)">
+          Y클라우드 에듀테크 연수
+        </h1>
+        <p class="text-white/95 text-lg md:text-xl">
+          미래 교육을 위한 AI·디지털 전환 역량 강화 프로그램
+        </p>
+        <div class="text-white/90 mt-6 space-y-2 text-base">
+          <p class="font-semibold">교실의 변화를 함께 만드는 파트너, YBM과 함께하는 AIDT 활용 & 에듀테크 연수</p>
+          <p>Y클라우드가 간다! 직접 찾아가서 하나하나 알려드립니다</p>
+        </div>
+      </div>
+
+      <!-- Hero 하단 카드 -->
+      <div class="glass rounded-2xl p-8 mt-10">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-2">AIDT 활용 연수</h3>
+            <p class="text-white/90 text-sm">AI 도구를 활용한 디지털 교육 혁신과<br/>스마트 교실 구축 방법론</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-2">에듀테크 활용 연수</h3>
+            <p class="text-white/90 text-sm">최신 교육 기술 도구 활용과<br/>디지털 수업 설계 전략</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= PROCESS ================= -->
+  <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">신청 프로세스</h2>
+
+      <div class="max-w-6xl mx-auto">
+        <!-- 상단 라인 (카드 위) -->
+        <div class="process-line w-full mb-12"></div>
+
+        <!-- 단계 카드 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <!-- 공통 단계 카드 템플릿: 원형 마커는 라인과 겹치지 않도록 -mt-8로 살짝 올림 -->
+          <div class="text-center">
+            <div class="relative -mt-8 mb-4">
+              <div class="w-7 h-7 bg-blue-500 rounded-full border-4 border-white shadow mx-auto"></div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-blue-500">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">신청 접수</h3>
+              <p class="text-gray-600 text-sm mb-3">온라인 신청서 작성 및 제출</p>
+              <ul class="text-xs text-gray-500 space-y-1">
+                <li>• 기관 정보 입력</li><li>• 희망 연수 선택</li><li>• 참석 인원 작성</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="relative -mt-8 mb-4">
+              <div class="w-7 h-7 bg-green-500 rounded-full border-4 border-white shadow mx-auto"></div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-green-500">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">접수 확인</h3>
+              <p class="text-gray-600 text-sm mb-3">24시간 내 담당자 연락</p>
+              <ul class="text-xs text-gray-500 space-y-1">
+                <li>• 신청 내용 검토</li><li>• 세부 일정 조율</li><li>• 연수 내용 안내</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="relative -mt-8 mb-4">
+              <div class="w-7 h-7 bg-purple-500 rounded-full border-4 border-white shadow mx-auto"></div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-purple-500">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">연수 확정</h3>
+              <p class="text-gray-600 text-sm mb-3">최종 일정 확정</p>
+              <ul class="text-xs text-gray-500 space-y-1">
+                <li>• 일정 및 장소 확정</li><li>• 참가자 명단 정리</li><li>• 준비사항 안내</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="relative -mt-8 mb-4">
+              <div class="w-7 h-7 bg-orange-500 rounded-full border-4 border-white shadow mx-auto"></div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-orange-500">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">연수 진행</h3>
+              <p class="text-gray-600 text-sm mb-3">전문 강사진 파견</p>
+              <ul class="text-xs text-gray-500 space-y-1">
+                <li>• 맞춤형 연수 진행</li><li>• 실습 및 Q&A</li><li>• 교육 자료 제공</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="relative -mt-8 mb-4">
+              <div class="w-7 h-7 bg-red-500 rounded-full border-4 border-white shadow mx-auto"></div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-red-500">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">사후 관리</h3>
+              <p class="text-gray-600 text-sm mb-3">지속적인 지원</p>
+              <ul class="text-xs text-gray-500 space-y-1">
+                <li>• 만족도 조사</li><li>• 추가 지원 논의</li><li>• 지속적 교육 지원</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAMS (요약) ================= -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">연수 프로그램</h2>
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- AIDT -->
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-800 mb-8 flex items-center">
+            <span class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">AI</span>
+            AIDT 활용 연수
+          </h3>
+          <div class="space-y-4">
+            <div class="course-card bg-gray-50 p-6 rounded-xl cursor-pointer hover:shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-semibold text-gray-800">AI 기반 개인화 학습 설계</h4>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">대면</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">학습자 맞춤형 AI 도구 활용법과 개별화 교육 전략 수립</p>
+              <div class="text-xs text-gray-500"><span class="font-medium">대상:</span> 초·중·고 교사, 교육 관리자</div>
+            </div>
+            <div class="course-card bg-gray-50 p-6 rounded-xl cursor-pointer hover:shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-semibold text-gray-800">ChatGPT 교육 활용 실습</h4>
+                <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">비대면</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">수업 자료 제작, 평가 문항 개발, 학습 피드백 생성 실습</p>
+              <div class="text-xs text-gray-500"><span class="font-medium">대상:</span> 모든 교과 교사</div>
+            </div>
+          </div>
+        </div>
+        <!-- 에듀테크 -->
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-800 mb-8 flex items-center">
+            <span class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">ET</span>
+            에듀테크 활용 연수
+          </h3>
+          <div class="space-y-4">
+            <div class="course-card bg-gray-50 p-6 rounded-xl cursor-pointer hover:shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-semibold text-gray-800">디지털 콘텐츠 제작 실습</h4>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">대면</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">영상, 인터랙티브 자료, 웹 콘텐츠 제작 도구 활용법</p>
+              <div class="text-xs text-gray-500"><span class="font-medium">대상:</span> 모든 교과 교사</div>
+            </div>
+            <div class="course-card bg-gray-50 p-6 rounded-xl cursor-pointer hover:shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-semibold text-gray-800">온라인 수업 플랫폼 활용</h4>
+                <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">비대면</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">Zoom, Teams, Google Classroom 등 화상 수업 도구 마스터</p>
+              <div class="text-xs text-gray-500"><span class="font-medium">대상:</span> 온라인 수업 담당 교사</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CALENDAR ================= -->
+  <section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">연수 일정 및 신청 현황</h2>
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+        <div class="flex items-center justify-between mb-8">
+          <button id="prevMonth" class="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors" aria-label="이전 달">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <h3 id="currentMonth" class="text-2xl font-semibold text-gray-800">2024년 1월</h3>
+          <button id="nextMonth" class="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors" aria-label="다음 달">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-7 gap-2 mb-4 text-sm font-semibold text-gray-600">
+          <div class="text-center py-3">일</div><div class="text-center py-3">월</div><div class="text-center py-3">화</div>
+          <div class="text-center py-3">수</div><div class="text-center py-3">목</div><div class="text-center py-3">금</div><div class="text-center py-3">토</div>
+        </div>
+        <div id="calendarGrid" class="grid grid-cols-7 gap-2"></div>
+
+        <div class="flex justify-center space-x-6 mt-8">
+          <div class="flex items-center"><span class="w-4 h-4 bg-blue-500 rounded mr-2"></span><span class="text-sm text-gray-600">AIDT 연수</span></div>
+          <div class="flex items-center"><span class="w-4 h-4 bg-green-500 rounded mr-2"></span><span class="text-sm text-gray-600">에듀테크 연수</span></div>
+          <div class="flex items-center"><span class="w-4 h-4 bg-red-500 rounded mr-2"></span><span class="text-sm text-gray-600">마감임박</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APPLICATION FORM =================
+       👉 기존 폼 마크업 구조/클래스 최대한 유지, 실무용 주석 보강
+  ====================================================== -->
+  <section class="py-20 bg-white" aria-labelledby="applyTitle">
+    <div class="container mx-auto px-6">
+      <h2 id="applyTitle" class="text-4xl font-bold text-center text-gray-800 mb-16">연수 신청하기</h2>
+
+      <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <form id="applicationForm" class="space-y-8">
+          <!-- 필수 입력 사항 -->
+          <div class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+            <h3 class="text-lg font-semibold text-blue-800 mb-4 flex items-center">
+              <span class="text-red-500 mr-1">*</span>필수 입력 사항
+            </h3>
+
+            <!-- 지역 / 기관 유형 -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-3">지역 <span class="text-red-500">*</span></label>
+                <select class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                  <option value="">지역을 선택하세요</option>
+                  <option value="서울">서울특별시</option><option value="부산">부산광역시</option>
+                  <option value="대구">대구광역시</option><option value="인천">인천광역시</option>
+                  <option value="광주">광주광역시</option><option value="대전">대전광역시</option>
+                  <option value="울산">울산광역시</option><option value="세종">세종특별자치시</option>
+                  <option value="경기">경기도</option><option value="강원">강원도</option>
+                  <option value="충북">충청북도</option><option value="충남">충청남도</option>
+                  <option value="전북">전라북도</option><option value="전남">전라남도</option>
+                  <option value="경북">경상북도</option><option value="경남">경상남도</option>
+                  <option value="제주">제주특별자치도</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-3">기관 유형 <span class="text-red-500">*</span></label>
+                <select class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                  <option value="">기관 유형을 선택하세요</option>
+                  <option value="초등학교">초등학교</option><option value="중학교">중학교</option>
+                  <option value="고등학교">고등학교</option><option value="기타">기타</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 학교명 -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">학교명 <span class="text-red-500">*</span></label>
+              <input type="text" class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="학교명을 입력하세요" required>
+            </div>
+
+            <!-- 담당자 / 이메일 -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-3">담당자 성함 <span class="text-red-500">*</span></label>
+                <input type="text" class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="담당자 성함을 입력하세요" required>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-3">이메일 <span class="text-red-500">*</span></label>
+                <input type="email" class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="example@school.edu" required>
+              </div>
+            </div>
+
+            <!-- 휴대폰 -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">휴대폰 번호 <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-3 gap-3">
+                <select class="form-input px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                  <option value="010">010</option><option value="011">011</option><option value="016">016</option>
+                  <option value="017">017</option><option value="018">018</option><option value="019">019</option>
+                </select>
+                <input type="tel" class="form-input px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0000" maxlength="4" required>
+                <input type="tel" class="form-input px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0000" maxlength="4" required>
+              </div>
+            </div>
+
+            <!-- 연수 주제 -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">연수 주제 <span class="text-red-500">*</span></label>
+              <div class="grid md:grid-cols-2 gap-4">
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-300 transition-colors">
+                  <input type="radio" name="trainingType" value="AIDT" class="mr-3 text-blue-500" onchange="showCourseList('AIDT')" required>
+                  <div><div class="font-semibold text-gray-800">AIDT 활용 연수</div><div class="text-sm text-gray-600">AI 도구 활용 교육</div></div>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-green-300 transition-colors">
+                  <input type="radio" name="trainingType" value="에듀테크" class="mr-3 text-green-500" onchange="showCourseList('에듀테크')" required>
+                  <div><div class="font-semibold text-gray-800">에듀테크 활용 연수</div><div class="text-sm text-gray-600">디지털 교육 도구 활용</div></div>
+                </label>
+              </div>
+            </div>
+
+            <!-- 강의 선택 -->
+            <div id="courseSelection" class="hidden mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">희망 강의 <span class="text-red-500">*</span></label>
+              <select id="courseDropdown" class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                <option value="">강의를 선택하세요</option>
+              </select>
+            </div>
+
+            <!-- 희망 일시 -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">연수 희망 일시 <span class="text-red-500">*</span></label>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">1순위</label>
+                  <input type="datetime-local" class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">2순위 (선택)</label>
+                  <input type="datetime-local" class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+              </div>
+            </div>
+
+            <!-- 참석 인원 -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3">참석 인원 <span class="text-red-500">*</span></label>
+              <div class="grid md:grid-cols-2 gap-4">
+                <input type="number" class="form-input px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="참석 예정 인원" min="1" max="50" required>
+                <div class="text-sm text-gray-500 flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  최대 20명까지 신청 가능
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 선택 입력 사항 -->
+          <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">선택 입력 사항</h3>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3">문의내용</label>
+              <textarea class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="연수 관련 문의사항이나 특별한 요청사항이 있으시면 작성해주세요."></textarea>
+            </div>
+          </div>
+
+          <!-- 개인정보 동의 -->
+          <div class="bg-yellow-50 rounded-xl p-6 border border-yellow-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+              <svg class="w-5 h-5 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+              </svg>
+              개인정보 수집 및 이용 동의
+            </h3>
+
+            <div class="bg-white rounded-lg p-4 mb-4 text-sm text-gray-700 max-h-32 overflow-y-auto border">
+              <p class="font-semibold mb-2">개인정보 수집 및 이용 목적</p>
+              <p class="mb-3">- 연수 신청 접수 및 처리<br>- 연수 일정 안내 및 연락<br>- 연수 관련 자료 발송<br>- 연수 만족도 조사</p>
+
+              <p class="font-semibold mb-2">수집하는 개인정보 항목</p>
+              <p class="mb-3">- 필수항목: 지역, 기관유형, 학교명, 담당자명, 연락처, 이메일<br>- 선택항목: 문의내용</p>
+
+              <p class="font-semibold mb-2">개인정보 보유 및 이용 기간</p>
+              <p class="mb-3">연수 종료 후 1년간 보관 후 파기</p>
+
+              <p class="text-xs text-gray-500">※ 개인정보 수집 및 이용을 거부할 권리가 있으나, 거부 시 연수 신청이 제한될 수 있습니다.</p>
+            </div>
+
+            <label class="flex items-center cursor-pointer">
+              <input type="checkbox" id="privacyAgree" class="mr-3 w-5 h-5 text-blue-500 rounded focus:ring-2 focus:ring-blue-500" required>
+              <span class="text-sm font-medium text-gray-800">
+                개인정보 수집 및 이용에 동의합니다. <span class="text-red-500">*</span>
+              </span>
+            </label>
+          </div>
+
+          <!-- 제출 -->
+          <div class="text-center pt-6">
+            <button type="submit" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+              연수 신청하기
+            </button>
+            <p class="text-xs text-gray-500 mt-3">신청 후 24시간 내에 담당자가 연락드립니다.</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- 유의사항 -->
+      <div class="max-w-3xl mx-auto mt-12 bg-gray-50 rounded-2xl p-8 border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+          <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          연수 신청 시 유의사항
+        </h3>
+        <div class="space-y-4 text-gray-700">
+          <div class="flex items-start"><div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><p><strong>신청 기간:</strong> 연수 시작일 최소 7일 전까지 신청해주세요.</p></div>
+          <div class="flex items-start"><div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><p><strong>정원 제한:</strong> 각 연수당 최대 20명까지 선착순 접수됩니다.</p></div>
+          <div class="flex items-start"><div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><p><strong>신청 확인:</strong> 신청 후 24시간 내에 담당자가 연락드립니다.</p></div>
+        </div>
+        <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+          <p class="text-sm text-blue-800">
+            <strong>문의사항:</strong> 연수 관련 문의는 평일 09:00~18:00 사이에
+            <span class="font-semibold">02-1234-5678</span> 또는
+            <span class="font-semibold">training@ycloud.edu</span>로 연락주세요.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // === Calendar (원본 로직 유지) ===
+    let currentDate = new Date();
+    const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    const trainingData = {
+      '2024-01-15':{type:'AIDT',status:'available',applicants:12},
+      '2024-01-22':{type:'에듀테크',status:'available',applicants:8},
+      '2024-01-29':{type:'AIDT',status:'full',applicants:20},
+      '2024-02-05':{type:'에듀테크',status:'available',applicants:15},
+      '2024-02-12':{type:'AIDT',status:'available',applicants:6},
+      '2024-02-19':{type:'에듀테크',status:'closing',applicants:18}
+    };
+    function generateCalendar(){
+      const year=currentDate.getFullYear(); const month=currentDate.getMonth();
+      document.getElementById('currentMonth').textContent=`${year}년 ${months[month]}`;
+      const firstDay=new Date(year,month,1).getDay();
+      const daysInMonth=new Date(year,month+1,0).getDate();
+      const grid=document.getElementById('calendarGrid'); grid.innerHTML='';
+      for(let i=0;i<firstDay;i++){ const d=document.createElement('div'); d.className='calendar-day p-4'; grid.appendChild(d); }
+      for(let day=1; day<=daysInMonth; day++){
+        const dateString=`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const info=trainingData[dateString];
+        const el=document.createElement('div');
+        el.className='calendar-day p-4 text-center border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50';
+        let html=`<div class="font-semibold text-gray-800">${day}</div>`;
+        if(info){
+          const base=info.type==='AIDT'?'bg-blue-500':'bg-green-500';
+          const status=info.status==='full'?'bg-red-500':(info.status==='closing'?'bg-orange-500':base);
+          html+=`<div class="mt-1"><div class="w-2 h-2 ${status} rounded-full mx-auto mb-1"></div><div class="text-xs text-gray-600">${info.applicants}/20</div></div>`;
+        }
+        el.innerHTML=html; grid.appendChild(el);
+      }
+    }
+    document.getElementById('prevMonth').addEventListener('click',()=>{currentDate.setMonth(currentDate.getMonth()-1);generateCalendar();});
+    document.getElementById('nextMonth').addEventListener('click',()=>{currentDate.setMonth(currentDate.getMonth()+1);generateCalendar();});
+    generateCalendar();
+
+    // === Course selection (원본 API 유지) ===
+    const courses = {
+      'AIDT': [
+        'AI 기반 개인화 학습 설계','ChatGPT 교육 활용 실습','AI 윤리와 디지털 시민성',
+        '스마트 교실 구축 방법론','AI 도구를 활용한 평가 혁신','AI 콘텐츠 생성 도구 활용',
+        '머신러닝 기초와 교육 적용','AI 챗봇을 활용한 학습 지원','데이터 사이언스 교육 방법론','AI 시대의 교사 역할 변화'
+      ],
+      '에듀테크': [
+        '디지털 콘텐츠 제작 실습','온라인 수업 플랫폼 활용','게이미피케이션 수업 설계',
+        'VR/AR 교육 콘텐츠 활용','데이터 기반 학습 분석','블렌디드 러닝 설계',
+        '디지털 평가 도구 활용','소셜 러닝 플랫폼 구축','모바일 학습 앱 개발','클라우드 기반 협업 도구'
+      ]
+    };
+    function showCourseList(type){
+      const courseSelection=document.getElementById('courseSelection');
+      const courseDropdown=document.getElementById('courseDropdown');
+      courseSelection.classList.remove('hidden');
+      courseDropdown.innerHTML='<option value="">강의를 선택하세요</option>';
+      courses[type].forEach((course)=>{
+        const option=document.createElement('option'); option.value=course; option.textContent=course; courseDropdown.appendChild(option);
+      });
+    }
+
+    // === Form submission (원본 요구사항 반영) ===
+    document.getElementById('applicationForm').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      // 개인정보 동의 체크
+      if(!document.getElementById('privacyAgree').checked){
+        alert('개인정보 수집 및 이용에 동의해주세요.'); return;
+      }
+      // 주제/강의 선택 검증
+      const trainingType=document.querySelector('input[name="trainingType"]:checked');
+      if(!trainingType){ alert('연수 주제를 선택해주세요.'); return; }
+      const selectedCourse=document.getElementById('courseDropdown').value;
+      if(!selectedCourse){ alert('희망 강의를 선택해주세요.'); return; }
+      // 전화번호 자리수 검증
+      const phones=document.querySelectorAll('input[type="tel"]');
+      for(const input of phones){ if(input.value.length<4){ alert('휴대폰 번호를 정확히 입력해주세요.'); input.focus(); return; } }
+      // 인원 제한
+      const count=document.querySelector('input[type="number"]').value;
+      if(+count>20){ alert('참석 인원은 최대 20명까지 신청 가능합니다.'); return; }
+      alert('연수 신청이 완료되었습니다!\n담당자가 확인 후 연락드리겠습니다.');
+      e.target.reset(); document.getElementById('courseSelection').classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
